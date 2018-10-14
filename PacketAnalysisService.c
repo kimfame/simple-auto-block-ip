@@ -1,5 +1,10 @@
+/**
+	@Month of the last update : 2015/11
+*/
+
+
 /*
-	> compile
+	> how to compile
 	gcc -o PacketAnlysisService PacketAnlysisService.c -lmysqlclient -lpcap
 */
 

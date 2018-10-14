@@ -1,7 +1,11 @@
+/**
+	@Month of the last update : 2015/11
+*/
+
 /*
 	> Need to the PacketAnalysisService file
 
-	> compile
+	> how to compile
 	gcc -o TrafficMeasurement TrafficMeasurement.c
 
 */
@@ -18,7 +22,7 @@
 void NetworkTrafficMeasurement();
 
 /*
-	main 함수는 데몬 프로세스 생성에 관여
+	main function is making an daemon process
 */
 int main(void)
 {
@@ -53,7 +57,7 @@ int main(void)
 			wait(&ret);
 		}
 		
-		// 300초 주기마다 NetworkTrafficMeasurement 함수를 실행한다.
+		// execute NetworkTrafficMeasurement function at 300 seconds interval.
 		NetworkTrafficMeasurement();
 		sleep(300); // Set interval 5 Min == 300 sec
 	}
@@ -64,10 +68,10 @@ void NetworkTrafficMeasurement()
 	FILE *fp = NULL;
 	double trafficDoubleValue;
 	/*
-		vnStat 네트워크 모니터링 프로그램 쉘 실행 구문
-		-i : 인터페이스를 의미
-		-tr : 트래픽 계산
-		| grep "rx" : 나가는 트래픽이 아닌 들어오는 트래픽 양만을 표시
+		shell execution syntax of vnStat network monitering program
+		-i : interface
+		-tr : traffic calculation
+		| grep "rx" : only display inbound traffic not outbound
 	*/
 	char command[100] = "vnstat -i p4p1 -tr | grep \"rx\""; // Set rx
 	char trafficCharValue[20];
@@ -81,7 +85,7 @@ void NetworkTrafficMeasurement()
 
 	// Parsing result
 	// form : rx   1.60 kbit/s   1 packets/s
-	fscanf(fp, "%s", trafficCharValue); // rx, 파싱 과정에서 필요없는 부분 
+	fscanf(fp, "%s", trafficCharValue); // rx, not need this part in parsing processing
 	fscanf(fp, "%s", trafficCharValue); // ex : 2.59, 1.61
 	fscanf(fp, "%s", bps); // ex : kbit/s, Mbit/s
 	

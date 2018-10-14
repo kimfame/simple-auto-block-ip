@@ -1,0 +1,17 @@
+iptables -P INPUT ACCEPT
+iptables -F
+
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+iptables -A INPUT -p udp -m udp --dport 53 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 53 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 10098 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -p OUTPUT ACCEPT
+
+iptables -L -v
